@@ -20,7 +20,7 @@ def show_images(images, labels=None, img_per_row=8, img_height=1, show_hist=Fals
         axes[index].title.set_text(labels[i])
         im = axes[index].imshow(images[i])
         if colorbar:
-            fig.colorbar(im, ax=axes[i%img_per_row])
+            fig.colorbar(im, ax=axes[index])
         if not show_axis:
             axes[index].axis('off')
 
