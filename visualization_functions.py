@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-import torch
+# import torch
 
 def show_images(images, labels=None, img_per_row=8, img_height=1, colorbar=False, scale_0_1=False,
                 show_hist=False, show_axis=False):
@@ -21,9 +21,9 @@ def show_images(images, labels=None, img_per_row=8, img_height=1, colorbar=False
                              figsize=(16, n*h*len(images)//img_per_row+1))
     for i, img in enumerate(images):
         
-        if torch.is_tensor(x_tensor):
-            if img.requires_grad: img = img.detach()
-            img = img.numpy()
+#         if torch.is_tensor(x_tensor):
+#             if img.requires_grad: img = img.detach()
+#             img = img.numpy()
             
         if scale: img = scale(img)
         
