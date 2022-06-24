@@ -40,7 +40,7 @@ def show_images(images, labels=None, img_per_row=8, img_height=1, colorbar=False
             
         if clim:
             m, s = np.mean(img), np.std(img)            
-            im.set_clim(m-s, m+s) 
+            im.set_clim(m-3*s, m+3*s) 
             
         if not show_axis:
             axes[index].axis('off')
