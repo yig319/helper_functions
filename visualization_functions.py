@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 # import torch
 
-def show_images(images, labels=None, img_per_row=8, img_height=1, colorbar=False, scale_0_1=False,
+def show_images(images, labels=None, img_per_row=8, img_height=1, colorbar=False, clim=True, scale_0_1=False,
                 show_hist=False, show_axis=False):
     
     def scale(x):
@@ -36,11 +36,16 @@ def show_images(images, labels=None, img_per_row=8, img_height=1, colorbar=False
         im = axes[index].imshow(img)
         if colorbar:
             fig.colorbar(im, ax=axes[index])
+            
+        if clim:
+            m, s = np.mean(img), np.std(img)            
+            im.set_clim(m-s, m+s) 
+            
         if not show_axis:
             axes[index].axis('off')
 
         if show_hist:
             index_hist = (i//img_per_row)*n+1, i%img_per_row
             h = axes[index_hist].hist(img.flatten())
-
+        
     plt.show()
