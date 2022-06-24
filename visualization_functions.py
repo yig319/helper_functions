@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 # import torch
 
 def show_images(images, labels=None, img_per_row=8, img_height=1, colorbar=False, clim=True, scale_0_1=False,
