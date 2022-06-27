@@ -2,9 +2,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 # import torch
 
-def show_images(images, labels=None, img_per_row=8, img_height=1, colorbar=False, clim=True, scale_0_1=False,
-                show_hist=False, show_axis=False):
-    
+def show_images(images, labels=None, img_per_row=8, img_height=1, colorbar=False, 
+                clim=False, scale_0_1=False, hist_bins=None, show_axis=False):
+    assert type(images) == list or type(images) == np.ndarray, "do not use torch.tensor for hist"
+
     def scale(x):
         if x.min() < 0:
             return (x - x.min()) / (x.max() - x.min())
@@ -16,7 +17,7 @@ def show_images(images, labels=None, img_per_row=8, img_height=1, colorbar=False
         labels = range(len(images))
         
     n = 1
-    if show_hist: n +=1
+    if hist_bins: n +=1
         
     fig, axes = plt.subplots(n*len(images)//img_per_row+1*int(len(images)%img_per_row>0), img_per_row, 
                              figsize=(16, n*h*len(images)//img_per_row+1))
@@ -28,7 +29,7 @@ def show_images(images, labels=None, img_per_row=8, img_height=1, colorbar=False
             
         if scale: img = scale(img)
         
-        if len(images) <= img_per_row and not show_hist:
+        if len(images) <= img_per_row and not hist_bins:
             index = i%img_per_row
         else:
             index = (i//img_per_row)*n, i%img_per_row
@@ -45,8 +46,8 @@ def show_images(images, labels=None, img_per_row=8, img_height=1, colorbar=False
         if not show_axis:
             axes[index].axis('off')
 
-        if show_hist:
+        if hist_bins:
             index_hist = (i//img_per_row)*n+1, i%img_per_row
-            h = axes[index_hist].hist(img.flatten())
+            h = axes[index_hist].hist(img.flatten(), bins=hist_bins)
         
     plt.show()
