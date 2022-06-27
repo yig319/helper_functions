@@ -27,7 +27,7 @@ def show_images(images, labels=None, img_per_row=8, img_height=1, colorbar=False
 #             if img.requires_grad: img = img.detach()
 #             img = img.numpy()
             
-        if scale: img = scale(img)
+        if scale_0_1: img = scale(img)
         
         if len(images) <= img_per_row and not hist_bins:
             index = i%img_per_row
