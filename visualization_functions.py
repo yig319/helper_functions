@@ -52,8 +52,8 @@ def show_images(images, labels=None, img_per_row=8, img_height=1, colorbar=False
         
     plt.show()
     
-
-def show_plots(ys, xs=None, labels=None, img_per_row=4, subplot_height=3):
+    
+def show_plots(ys, xs=None, labels=None, ys_fit=None, img_per_row=4, subplot_height=3):
     
 #     assert type(ys) == np.ndarray, "use numpy array with shape=(n, y)"
 #     assert type(labels) == list or type(labels) == type(None), "use list for labels"
@@ -67,8 +67,9 @@ def show_plots(ys, xs=None, labels=None, img_per_row=4, subplot_height=3):
 #         xs, _ = np.meshgrid(np.linspace(0, 1, ys.shape[1]), np.ones((ys.shape[0])))
         
     fig, axes = plt.subplots(len(ys)//img_per_row+1*int(len(ys)%img_per_row>0), img_per_row, 
-                             figsize=(16, subplot_height*len(ys)//img_per_row+1))
-    for i, (x, y) in enumerate(zip(xs, ys)):
+                             figsize=(16, subplot_height*len(ys)//img_per_row+1))    
+    
+    for i in range(len(ys)):
         
         if len(ys) <= img_per_row:
             index = i%img_per_row
@@ -76,6 +77,11 @@ def show_plots(ys, xs=None, labels=None, img_per_row=4, subplot_height=3):
             index = (i//img_per_row), i%img_per_row
 
         axes[index].title.set_text(labels[i])
-        im = axes[index].plot(x, y)
+        
+        im = axes[index].plot(xs[i], ys[i], marker='.')
+        
+        if type(ys_fit) != type(None):
+            im = axes[index].plot(xs[i], ys_fit[i])
+                   
     fig.tight_layout()
     plt.show()
